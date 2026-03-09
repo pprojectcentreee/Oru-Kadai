@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ஒரு கடை - Oru Kadai | Tea & Honey Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" href="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/logo%20oru%20kadai.png">
+
+<style>
+/* ===== ROOT VARIABLES ===== */
+:root {
+    --tea-primary: #2d5016;
+    --tea-secondary: #4a7c24;
+    --tea-light: #e8f5e1;
+    --tea-dark: #1a3009;
+    --honey-primary: #b8860b;
+    --honey-secondary: #daa520;
+    --honey-light: #fff8e7;
+    --honey-dark: #8b6508;
+    --bg-primary: #fefefe;
+    --bg-secondary: #f5f5f0;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-light: #888;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.16);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.2);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Poppins', 'Noto Sans Tamil', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--tea-secondary), var(--honey-secondary));
+    border-radius: 10px;
+}
+
+::selection {
+    background: var(--tea-secondary);
+    color: var(--white);
+}
+
+/* ===== PRELOADER ===== */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--tea-dark), #0a1f04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-container {
+    text-align: center;
+}
+
+.loader-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    animation: pulse-glow 1.5s infinite;
+    margin-bottom: 30px;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(74,124,36,0.5)); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 30px rgba(74,124,36,0.8)); }
+}
+
+.loader-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto 15px;
+}
+
+.loader-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--tea-secondary), var(--honey-secondary));
+    border-radius: 10px;
+    animation: fill-bar 2s forwards;
+}
+
+@keyframes fill-bar {
+    to { width: 100%; }
+}
+
+.loader-text {
+    color: var(--tea-light);
+    font-size: 1.1rem;
+    animation: fade-pulse 1s infinite alternate;
+}
+
+@keyframes fade-pulse {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+/* ===== NAVIGATION ===== */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+#navbar.scrolled {
+    box-shadow: var(--shadow-md);
+    background: rgba(255,255,255,0.98);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--tea-secondary);
+    transition: var(--transition);
+}
+
+.nav-logo:hover {
+    transform: rotate(360deg);
+    border-color: var(--honey-secondary);
+}
+
+.logo-text h1 {
+    font-size: 1.4rem;
+    color: var(--tea-primary);
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.logo-text span {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a small {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--tea-primary);
+    background: var(--tea-light);
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: var(--tea-secondary);
+    border-radius: 10px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-btn {
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    position: relative;
+    font-family: inherit;
+}
+
+.cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(45,80,22,0.4);
+}
+
+.cart-count {
+    background: #ff4444;
+    color: var(--white);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    animation: bounce-in 0.3s;
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: 2px solid var(--tea-secondary);
+    color: var(--tea-primary);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--white);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 10px 30px;
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 500;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a1f04 0%, #1a3009 30%, #0d2b06 70%, #081a03 100%);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 30px 50px;
+}
+
+.hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(74,124,36,0.3);
+    border-radius: 50%;
+    animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(74,124,36,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(218,165,32,0.1) 0%, transparent 60%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(74,124,36,0.2);
+    border: 1px solid rgba(74,124,36,0.3);
+    color: #a8d88a;
+    padding: 8px 20px;
+    border-radius: var(--radius-xl);
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    animation: fadeInUp 0.8s 0.3s both;
+}
+
+.hero-title {
+    animation: fadeInUp 0.8s 0.5s both;
+}
+
+.tamil-title {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+}
+
+.english-title {
+    display: block;
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--tea-secondary), var(--honey-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sub-title {
+    display: block;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    margin-top: 5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.hero-description {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.1rem;
+    margin: 25px 0;
+    line-height: 1.8;
+    animation: fadeInUp 0.8s 0.7s both;
+}
+
+.hero-features {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+    animation: fadeInUp 0.8s 0.9s both;
+}
+
+.feature-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.feature-pill:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-3px);
+}
+
+.feature-pill i {
+    font-size: 1.3rem;
+    color: var(--honey-secondary);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 35px 0;
+    animation: fadeInUp 0.8s 1.1s both;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--tea-secondary), var(--honey-secondary));
+    color: var(--white);
+    padding: 15px 35px;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: var(--transition);
+    box-shadow: 0 5px 25px rgba(74,124,36,0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 35px rgba(74,124,36,0.5);
+}
+
+.pulse-btn {
+    animation: pulse-shadow 2s infinite;
+}
+
+@keyframes pulse-shadow {
+    0%, 100% { box-shadow: 0 5px 25px rgba(74,124,36,0.4); }
+    50% { box-shadow: 0 5px 40px rgba(74,124,36,0.6), 0 0 60px rgba(74,124,36,0.2); }
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--white);
+    padding: 15px 35px;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-3px);
+}
+
+.hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    animation: fadeInUp 0.8s 1.3s both;
+}
+
+.stat-item {
+    text-align: center;
+    color: var(--white);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--honey-secondary), #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 3px;
+}
+
+.hero-images {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.floating-product {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border: 4px solid rgba(255,255,255,0.1);
+}
+
+.floating-product img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fp-1 {
+    width: 280px;
+    height: 280px;
+    top: -140px;
+    right: 50px;
+    animation: float-1 6s ease-in-out infinite;
+}
+
+.fp-2 {
+    width: 220px;
+    height: 220px;
+    top: 60px;
+    right: -30px;
+    animation: float-2 5s ease-in-out infinite 1s;
+}
+
+@keyframes float-1 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
+}
+
+@keyframes float-2 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(15px) rotate(-3deg); }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    animation: fadeInUp 0.8s 1.5s both;
+}
+
+.mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 15px;
+    margin: 0 auto 10px;
+    position: relative;
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--honey-secondary);
+    border-radius: 4px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel 1.5s infinite;
+}
+
+@keyframes scroll-wheel {
+    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+}
+
+.scroll-indicator p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MARQUEE ===== */
+.marquee-banner {
+    background: linear-gradient(135deg, var(--tea-primary), var(--honey-dark));
+    overflow: hidden;
+    padding: 12px 0;
+    position: relative;
+}
+
+.marquee-content {
+    display: flex;
+    gap: 60px;
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+}
+
+.marquee-content span {
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ===== SECTIONS COMMON ===== */
+.section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-badge {
+    display: inline-block;
+    background: var(--tea-light);
+    color: var(--tea-primary);
+    padding: 6px 20px;
+    border-radius: var(--radius-xl);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--tea-dark);
+    margin-bottom: 15px;
+}
+
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.min-order-notice {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 2px solid #f0c040;
+    border-radius: var(--radius-md);
+    padding: 15px 25px;
+    margin-top: 25px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #856404;
+    font-size: 0.9rem;
+    animation: pulse-notice 2s infinite;
+}
+
+@keyframes pulse-notice {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* ===== PRODUCTS ===== */
+.products-section {
+    padding: 100px 0;
+    background: var(--bg-secondary);
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.cat-tab {
+    background: var(--white);
+    border: 2px solid transparent;
+    padding: 12px 30px;
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.cat-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.cat-tab.active {
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 5px 20px rgba(45,80,22,0.3);
+}
+
+.cat-tab.tea-tab.active {
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+}
+
+.cat-tab.honey-tab.active {
+    background: linear-gradient(135deg, var(--honey-dark), var(--honey-secondary));
+    box-shadow: 0 5px 20px rgba(184,134,11,0.3);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.product-card.hidden {
+    display: none;
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+    padding: 5px 15px;
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 5;
+}
+
+.product-badge.bestseller {
+    background: linear-gradient(135deg, #ff4444, #ff6b6b);
+}
+
+.product-badge.value-pack {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+.product-badge.honey-badge {
+    background: linear-gradient(135deg, var(--honey-dark), var(--honey-secondary));
+}
+
+.product-image-wrapper {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.product-card:hover .product-image-wrapper img {
+    transform: scale(1.1);
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-overlay button {
+    background: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--tea-primary);
+    transition: var(--transition);
+}
+
+.product-overlay button:hover {
+    transform: scale(1.1);
+    background: var(--tea-light);
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-info h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--tea-dark);
+    margin-bottom: 5px;
+}
+
+.honey-product .product-info h3 {
+    color: var(--honey-dark);
+}
+
+.product-weight {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.product-rating {
+    margin-bottom: 12px;
+}
+
+.product-rating i {
+    color: #ffc107;
+    font-size: 0.85rem;
+}
+
+.product-rating span {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+.product-price {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--tea-primary);
+}
+
+.honey-product .price {
+    color: var(--honey-dark);
+}
+
+.mrp {
+    font-size: 1rem;
+    color: var(--text-light);
+    text-decoration: line-through;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 15px;
+    border: 2px solid #eee;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    width: fit-content;
+}
+
+.quantity-selector button {
+    background: var(--bg-secondary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.quantity-selector button:hover {
+    background: var(--tea-light);
+    color: var(--tea-primary);
+}
+
+.quantity-selector input {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    outline: none;
+    background: var(--white);
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(45,80,22,0.4);
+}
+
+.honey-cart-btn {
+    background: linear-gradient(135deg, var(--honey-dark), var(--honey-secondary));
+}
+
+.honey-cart-btn:hover {
+    box-shadow: 0 5px 20px rgba(184,134,11,0.4);
+}
+
+/* ===== ABOUT SECTION ===== */
+.about-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.about-card {
+    text-align: center;
+    padding: 50px 30px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.about-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--tea-light);
+}
+
+.about-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.about-card h3 {
+    font-size: 1.3rem;
+    color: var(--tea-dark);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.about-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--tea-dark), #0a1f04);
+}
+
+.contact-section .section-badge {
+    background: rgba(74,124,36,0.3);
+    color: #a8d88a;
+}
+
+.contact-section .section-header h2 {
+    color: var(--white);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.contact-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 40px 30px;
+    text-align: center;
+    color: var(--white);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.contact-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+}
+
+.contact-card i {
+    font-size: 2.5rem;
+    color: var(--honey-secondary);
+    margin-bottom: 20px;
+}
+
+.contact-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.contact-card p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #050e02;
+    padding: 50px 30px 20px;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-brand {
+    margin-bottom: 30px;
+}
+
+.footer-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.footer-brand h3 {
+    color: var(--white);
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.footer-brand p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-bottom p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+}
+
+.admin-link {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.admin-link:hover {
+    color: var(--honey-secondary);
+}
+
+/* ===== CART SIDEBAR ===== */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -450px;
+    width: 420px;
+    max-width: 90vw;
+    height: 100%;
+    background: var(--white);
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-xl);
+}
+
+.cart-sidebar.active {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+}
+
+.cart-header h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-cart {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: var(--white);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.close-cart:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.empty-cart i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    margin-bottom: 12px;
+    align-items: center;
+    animation: slideInRight 0.3s;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-details h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+}
+
+.cart-item-details p {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.cart-item-price {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--tea-primary);
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 5px;
+    transition: var(--transition);
+}
+
+.cart-item-remove:hover {
+    transform: scale(1.2);
+}
+
+.cart-footer {
+    padding: 20px 25px;
+    border-top: 2px solid var(--bg-secondary);
+    background: var(--white);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: var(--tea-dark);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--honey-dark), var(--honey-secondary));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(184,134,11,0.4);
+}
+
+/* ===== CHECKOUT MODAL ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    max-width: 650px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modal-pop 0.4s;
+}
+
+@keyframes modal-pop {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--bg-secondary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    z-index: 5;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: #ff4444;
+    color: var(--white);
+}
+
+.checkout-step {
+    display: none;
+    padding: 40px;
+}
+
+.checkout-step.active {
+    display: block;
+}
+
+.checkout-step h2 {
+    font-size: 1.4rem;
+    color: var(--tea-dark);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-summary {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.summary-item-info h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.summary-item-info p {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.summary-item-price {
+    font-weight: 700;
+    color: var(--tea-primary);
+}
+
+.order-total-section {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 25px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.95rem;
+}
+
+.grand-total {
+    border-top: 2px solid var(--tea-secondary);
+    margin-top: 10px;
+    padding-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--tea-dark);
+}
+
+.next-step-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.next-step-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(45,80,22,0.4);
+}
+
+.customer-form .form-group {
+    margin-bottom: 18px;
+}
+
+.customer-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.customer-form label i {
+    color: var(--tea-secondary);
+    margin-right: 5px;
+}
+
+.customer-form input,
+.customer-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: var(--transition);
+    outline: none;
+}
+
+.customer-form input:focus,
+.customer-form textarea:focus {
+    border-color: var(--tea-secondary);
+    box-shadow: 0 0 0 3px rgba(74,124,36,0.1);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.back-step-btn {
+    flex: 1;
+    padding: 15px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.back-step-btn:hover {
+    background: #e0e0e0;
+}
+
+.place-order-btn {
+    flex: 2;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--honey-dark), var(--honey-secondary));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.place-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(184,134,11,0.4);
+}
+
+.order-success {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.success-animation {
+    margin-bottom: 30px;
+}
+
+.checkmark-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--tea-secondary), #66bb6a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    animation: checkmark-pop 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes checkmark-pop {
+    0% { transform: scale(0) rotate(-180deg); }
+    50% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.checkmark-circle i {
+    font-size: 3rem;
+    color: var(--white);
+}
+
+.order-success h2 {
+    font-size: 1.6rem;
+    color: var(--tea-dark);
+    margin-bottom: 5px;
+    justify-content: center;
+}
+
+.order-success h3 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.order-id-display {
+    background: var(--tea-light);
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: var(--radius-xl);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: var(--tea-dark);
+}
+
+.order-success > p {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.success-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.download-bill-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.download-bill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(192,57,43,0.4);
+}
+
+.continue-shopping-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, var(--tea-primary), var(--tea-secondary));
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.continue-shopping-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(45,80,22,0.4);
+}
+
+/* ===== TOAST ===== */
+.toast-container {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 15px 25px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    animation: toast-in 0.4s, toast-out 0.4s 2.6s forwards;
+    border-left: 4px solid var(--tea-secondary);
+}
+
+.toast.success { border-left-color: #27ae60; }
+.toast.error { border-left-color: #e74c3c; }
+.toast.warning { border-left-color: #f39c12; }
+.toast.info { border-left-color: #3498db; }
+
+.toast i { font-size: 1.3rem; }
+.toast.success i { color: #27ae60; }
+.toast.error i { color: #e74c3c; }
+.toast.warning i { color: #f39c12; }
+.toast.info i { color: #3498db; }
+
+.toast-text { flex: 1; }
+
+.toast-text strong {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+
+.toast-text span {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateX(100px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toast-out {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100px); }
+}
+
+/* ===== WHATSAPP ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 2rem;
+    text-decoration: none;
+    z-index: 999;
+    box-shadow: 0 5px 25px rgba(37,211,102,0.4);
+    transition: var(--transition);
+    animation: whatsapp-pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+@keyframes whatsapp-pulse {
+    0%, 100% { box-shadow: 0 5px 25px rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 5px 25px rgba(37,211,102,0.4), 0 0 0 15px rgba(37,211,102,0.1); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .hero-images { display: none; }
+    .hero-content { max-width: 100%; text-align: center; }
+    .hero-features { justify-content: center; flex-wrap: wrap; }
+    .hero-buttons { justify-content: center; flex-wrap: wrap; }
+    .hero-stats { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .tamil-title { font-size: 2.2rem; }
+    .english-title { font-size: 1.8rem; }
+    .sub-title { font-size: 0.9rem; }
+    .hero-section { padding: 120px 20px 60px; }
+    .section-header h2 { font-size: 1.8rem; }
+    .products-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .checkout-step { padding: 25px; }
+    .form-buttons { flex-direction: column; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .hero-features { flex-direction: column; align-items: center; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .stat-number { font-size: 1.8rem; }
+    .hero-stats { gap: 25px; }
+    .toast { min-width: 260px; }
+}
+
+@media (max-width: 480px) {
+    .nav-container { padding: 10px 15px; }
+    .logo-text h1 { font-size: 1.1rem; }
+    .section-container { padding: 0 15px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .cart-sidebar { width: 100%; }
+    .tamil-title { font-size: 1.8rem; }
+    .english-title { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-container">
+            <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/logo%20oru%20kadai.png" alt="Loading..." class="loader-logo">
+            <div class="loader-bar"><div class="loader-fill"></div></div>
+            <p class="loader-text">ஒரு கடை Loading...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/logo%20oru%20kadai.png" alt="Oru Kadai Logo" class="nav-logo">
+                <div class="logo-text">
+                    <h1>ஒரு கடை</h1>
+                    <span>Oru Kadai</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">முகப்பு<br><small>Home</small></a></li>
+                <li><a href="#products">பொருட்கள்<br><small>Products</small></a></li>
+                <li><a href="#about">எங்களைப் பற்றி<br><small>About</small></a></li>
+                <li><a href="#contact">தொடர்பு<br><small>Contact</small></a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                    கூடை
+                </button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" onclick="toggleMobileMenu()">முகப்பு - Home</a>
+            <a href="#products" onclick="toggleMobileMenu()">பொருட்கள் - Products</a>
+            <a href="#about" onclick="toggleMobileMenu()">எங்களைப் பற்றி - About</a>
+            <a href="#contact" onclick="toggleMobileMenu()">தொடர்பு - Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">🌿 இயற்கை பொருட்கள் - 100% Natural Products</div>
+            <h1 class="hero-title">
+                <span class="tamil-title">ஒரு கடைக்கு</span>
+                <span class="english-title">வரவேற்கிறோம்!</span>
+                <span class="sub-title">Welcome to Oru Kadai</span>
+            </h1>
+            <p class="hero-description">
+                தரமான தேயிலைத்தூள் மற்றும் இயற்கை தேன் - உங்கள் ஆரோக்கியத்திற்காக!
+                <br><em>Premium Tea Powder & Natural Honey - For Your Health!</em>
+            </p>
+            <div class="hero-features">
+                <div class="feature-pill"><i class="fas fa-leaf"></i><span>100% இயற்கை<br>Natural</span></div>
+                <div class="feature-pill"><i class="fas fa-truck"></i><span>விரைவு டெலிவரி<br>Fast Delivery</span></div>
+                <div class="feature-pill"><i class="fas fa-star"></i><span>உயர் தரம்<br>Premium Quality</span></div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#products" class="btn-primary pulse-btn"><i class="fas fa-shopping-bag"></i> இப்போது வாங்குங்கள் - Shop Now</a>
+                <a href="#about" class="btn-secondary"><i class="fas fa-info-circle"></i> மேலும் அறிய - Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item"><span class="stat-number" data-target="500">0</span>+<span class="stat-label">வாடிக்கையாளர்கள்<br>Customers</span></div>
+                <div class="stat-item"><span class="stat-number" data-target="100">0</span>%<span class="stat-label">இயற்கை<br>Natural</span></div>
+                <div class="stat-item"><span class="stat-number" data-target="50">0</span>+<span class="stat-label">ஊர்கள்<br>Cities</span></div>
+            </div>
+        </div>
+        <div class="hero-images">
+            <div class="floating-product fp-1"><img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/black-tea-powder-dry-dust-with-without-green-leaf-served-hot-chai-cup_466689-30161.avif" alt="Tea"></div>
+            <div class="floating-product fp-2"><img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/honey.jpg" alt="Honey"></div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"><div class="wheel"></div></div>
+            <p>கீழே உருட்டவும் - Scroll Down</p>
+        </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="marquee-banner">
+        <div class="marquee-content">
+            <span>🍵 தரமான தேயிலைத்தூள் - Premium Tea Powder</span>
+            <span>🍯 இயற்கை தேன் - Natural Honey</span>
+            <span>📦 250 கிராமுக்கு மேல் மட்டுமே - Minimum 250g Orders Only</span>
+            <span>🚚 விரைவு டெலிவரி - Fast Delivery</span>
+            <span>⭐ 100% தரம் உறுதி - Quality Guaranteed</span>
+            <span>🍵 தரமான தேயிலைத்தூள் - Premium Tea Powder</span>
+            <span>🍯 இயற்கை தேன் - Natural Honey</span>
+            <span>📦 250 கிராமுக்கு மேல் மட்டுமே - Minimum 250g Orders Only</span>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">🛒 எங்கள் பொருட்கள்</span>
+                <h2>பொருட்கள் - Our Products</h2>
+                <p>தரமான இயற்கை பொருட்கள் - உங்கள் வீட்டிற்கு நேரடியாக!</p>
+                <p><em>Quality natural products - delivered directly to your home!</em></p>
+                <div class="min-order-notice">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>குறிப்பு / Note:</strong> 250 கிராமுக்கு கீழ் ஆர்டர் ஏற்றுக்கொள்ளப்படாது
+                    <br>Orders below 250 grams will NOT be accepted
+                </div>
+            </div>
+
+            <div class="category-tabs">
+                <button class="cat-tab active" onclick="filterProducts('all', this)">அனைத்தும்<br><small>All</small></button>
+                <button class="cat-tab tea-tab" onclick="filterProducts('tea', this)">🍵 தேயிலைத்தூள்<br><small>Tea Powder</small></button>
+                <button class="cat-tab honey-tab" onclick="filterProducts('honey', this)">🍯 தேன்<br><small>Honey</small></button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Tea 250g -->
+                <div class="product-card tea-product" data-category="tea">
+                    <div class="product-badge">🍵 தேயிலை</div>
+                    <div class="product-image-wrapper">
+                        <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/black-tea-powder-dry-dust-with-without-green-leaf-served-hot-chai-cup_466689-30161.avif" alt="Tea Powder 250g">
+                        <div class="product-overlay"><button onclick="showToast('info','விரைவு பார்வை','Product details coming soon!')"><i class="fas fa-eye"></i></button></div>
+                    </div>
+                    <div class="product-info">
+                        <h3>தேயிலைத்தூள் - Tea Powder</h3>
+                        <p class="product-weight">250 கிராம் / 250 Grams</p>
+                        <div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>(4.5)</span></div>
+                        <div class="product-price"><span class="price">₹75</span><span class="mrp">₹95</span></div>
+                        <div class="quantity-selector"><button onclick="changeQty('tea-250',-1)">-</button><input type="number" id="qty-tea-250" value="1" min="1" max="50" readonly><button onclick="changeQty('tea-250',1)">+</button></div>
+                        <button class="add-to-cart-btn" onclick="addToCart('tea-250','தேயிலைத்தூள் / Tea Powder','250g',75)"><i class="fas fa-cart-plus"></i> கூடையில் சேர் - Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Tea 500g -->
+                <div class="product-card tea-product" data-category="tea">
+                    <div class="product-badge bestseller">🔥 Best Seller</div>
+                    <div class="product-image-wrapper">
+                        <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/black-tea-powder-dry-dust-with-without-green-leaf-served-hot-chai-cup_466689-30161.avif" alt="Tea Powder 500g">
+                        <div class="product-overlay"><button onclick="showToast('info','விரைவு பார்வை','Product details coming soon!')"><i class="fas fa-eye"></i></button></div>
+                    </div>
+                    <div class="product-info">
+                        <h3>தேயிலைத்தூள் - Tea Powder</h3>
+                        <p class="product-weight">அரை கிலோ / 500 Grams (Half Kg)</p>
+                        <div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(5.0)</span></div>
+                        <div class="product-price"><span class="price">₹140</span><span class="mrp">₹180</span></div>
+                        <div class="quantity-selector"><button onclick="changeQty('tea-500',-1)">-</button><input type="number" id="qty-tea-500" value="1" min="1" max="50" readonly><button onclick="changeQty('tea-500',1)">+</button></div>
+                        <button class="add-to-cart-btn" onclick="addToCart('tea-500','தேயிலைத்தூள் / Tea Powder','500g',140)"><i class="fas fa-cart-plus"></i> கூடையில் சேர் - Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Tea 1kg -->
+                <div class="product-card tea-product" data-category="tea">
+                    <div class="product-badge value-pack">💰 Value Pack</div>
+                    <div class="product-image-wrapper">
+                        <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/black-tea-powder-dry-dust-with-without-green-leaf-served-hot-chai-cup_466689-30161.avif" alt="Tea Powder 1kg">
+                        <div class="product-overlay"><button onclick="showToast('info','விரைவு பார்வை','Product details coming soon!')"><i class="fas fa-eye"></i></button></div>
+                    </div>
+                    <div class="product-info">
+                        <h3>தேயிலைத்தூள் - Tea Powder</h3>
+                        <p class="product-weight">ஒரு கிலோ / 1 Kilogram</p>
+                        <div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(5.0)</span></div>
+                        <div class="product-price"><span class="price">₹260</span><span class="mrp">₹340</span></div>
+                        <div class="quantity-selector"><button onclick="changeQty('tea-1000',-1)">-</button><input type="number" id="qty-tea-1000" value="1" min="1" max="50" readonly><button onclick="changeQty('tea-1000',1)">+</button></div>
+                        <button class="add-to-cart-btn" onclick="addToCart('tea-1000','தேயிலைத்தூள் / Tea Powder','1kg',260)"><i class="fas fa-cart-plus"></i> கூடையில் சேர் - Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Honey 250g -->
+                <div class="product-card honey-product" data-category="honey">
+                    <div class="product-badge honey-badge">🍯 தேன்</div>
+                    <div class="product-image-wrapper">
+                        <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/honey.jpg" alt="Honey 250g">
+                        <div class="product-overlay"><button onclick="showToast('info','விரைவு பார்வை','Product details coming soon!')"><i class="fas fa-eye"></i></button></div>
+                    </div>
+                    <div class="product-info">
+                        <h3>இயற்கை தேன் - Natural Honey</h3>
+                        <p class="product-weight">250 கிராம் / 250 Grams</p>
+                        <div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>(4.5)</span></div>
+                        <div class="product-price"><span class="price">₹150</span><span class="mrp">₹200</span></div>
+                        <div class="quantity-selector"><button onclick="changeQty('honey-250',-1)">-</button><input type="number" id="qty-honey-250" value="1" min="1" max="50" readonly><button onclick="changeQty('honey-250',1)">+</button></div>
+                        <button class="add-to-cart-btn honey-cart-btn" onclick="addToCart('honey-250','இயற்கை தேன் / Natural Honey','250g',150)"><i class="fas fa-cart-plus"></i> கூடையில் சேர் - Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Honey 500g -->
+                <div class="product-card honey-product" data-category="honey">
+                    <div class="product-badge bestseller">🔥 Best Seller</div>
+                    <div class="product-image-wrapper">
+                        <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/honey.jpg" alt="Honey 500g">
+                        <div class="product-overlay"><button onclick="showToast('info','விரைவு பார்வை','Product details coming soon!')"><i class="fas fa-eye"></i></button></div>
+                    </div>
+                    <div class="product-info">
+                        <h3>இயற்கை தேன் - Natural Honey</h3>
+                        <p class="product-weight">அரை கிலோ / 500 Grams (Half Kg)</p>
+                        <div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(5.0)</span></div>
+                        <div class="product-price"><span class="price">₹280</span><span class="mrp">₹380</span></div>
+                        <div class="quantity-selector"><button onclick="changeQty('honey-500',-1)">-</button><input type="number" id="qty-honey-500" value="1" min="1" max="50" readonly><button onclick="changeQty('honey-500',1)">+</button></div>
+                        <button class="add-to-cart-btn honey-cart-btn" onclick="addToCart('honey-500','இயற்கை தேன் / Natural Honey','500g',280)"><i class="fas fa-cart-plus"></i> கூடையில் சேர் - Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Honey 1kg -->
+                <div class="product-card honey-product" data-category="honey">
+                    <div class="product-badge value-pack">💰 Value Pack</div>
+                    <div class="product-image-wrapper">
+                        <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/honey.jpg" alt="Honey 1kg">
+                        <div class="product-overlay"><button onclick="showToast('info','விரைவு பார்வை','Product details coming soon!')"><i class="fas fa-eye"></i></button></div>
+                    </div>
+                    <div class="product-info">
+                        <h3>இயற்கை தேன் - Natural Honey</h3>
+                        <p class="product-weight">ஒரு கிலோ / 1 Kilogram</p>
+                        <div class="product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(5.0)</span></div>
+                        <div class="product-price"><span class="price">₹520</span><span class="mrp">₹700</span></div>
+                        <div class="quantity-selector"><button onclick="changeQty('honey-1000',-1)">-</button><input type="number" id="qty-honey-1000" value="1" min="1" max="50" readonly><button onclick="changeQty('honey-1000',1)">+</button></div>
+                        <button class="add-to-cart-btn honey-cart-btn" onclick="addToCart('honey-1000','இயற்கை தேன் / Natural Honey','1kg',520)"><i class="fas fa-cart-plus"></i> கூடையில் சேர் - Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">🌿 எங்களைப் பற்றி</span>
+                <h2>எங்களைப் பற்றி - About Us</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon">🍵</div>
+                    <h3>தரமான தேயிலை<br>Premium Tea</h3>
+                    <p>நீலகிரி மலைகளில் இருந்து நேரடியாக பெறப்படும் தரமான தேயிலைத்தூள். சுவையும் மணமும் நிறைந்தது.</p>
+                    <p><em>Premium tea powder sourced directly from Nilgiri hills. Rich in flavor and aroma.</em></p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🍯</div>
+                    <h3>இயற்கை தேன்<br>Natural Honey</h3>
+                    <p>கலப்படமில்லாத, சுத்தமான இயற்கை தேன். காடுகளில் இருந்து நேரடியாக சேகரிக்கப்படுகிறது.</p>
+                    <p><em>Pure, unadulterated natural honey. Collected directly from forests.</em></p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">💚</div>
+                    <h3>ஆரோக்கியம்<br>Health Benefits</h3>
+                    <p>எங்கள் பொருட்கள் உங்கள் ஆரோக்கியத்தை மேம்படுத்தும். எந்த ரசாயனமும் சேர்க்கப்படவில்லை.</p>
+                    <p><em>Our products enhance your health. No chemicals added whatsoever.</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">📞 தொடர்பு</span>
+                <h2>தொடர்பு கொள்ளுங்கள் - Contact Us</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card"><i class="fas fa-phone-alt"></i><h3>தொலைபேசி / Phone</h3><p>+91 98765 43210</p></div>
+                <div class="contact-card"><i class="fas fa-envelope"></i><h3>மின்னஞ்சல் / Email</h3><p>orukadai@gmail.com</p></div>
+                <div class="contact-card"><i class="fas fa-map-marker-alt"></i><h3>முகவரி / Address</h3><p>தமிழ்நாடு, இந்தியா<br>Tamil Nadu, India</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/logo%20oru%20kadai.png" alt="Logo" class="footer-logo">
+                <h3>ஒரு கடை - Oru Kadai</h3>
+                <p>தரமான இயற்கை பொருட்கள்<br>Premium Natural Products</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ஒரு கடை - Oru Kadai. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+                <a href="admin.html" class="admin-link"><i class="fas fa-lock"></i> நிர்வாகி / Admin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2><i class="fas fa-shopping-cart"></i> கூடை - Cart</h2>
+            <button onclick="closeCart()" class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart" id="emptyCart"><i class="fas fa-shopping-basket"></i><p>கூடை காலியாக உள்ளது<br>Cart is empty</p></div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total"><span>மொத்தம் / Total:</span><span id="cartTotal">₹0</span></div>
+            <button class="checkout-btn" onclick="openCheckout()"><i class="fas fa-receipt"></i> ஆர்டர் செய்யுங்கள் - Place Order</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content checkout-modal">
+            <button class="modal-close" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+            <div class="checkout-steps">
+                <div class="checkout-step active" id="step1">
+                    <h2><i class="fas fa-list"></i> ஆர்டர் சுருக்கம் - Order Summary</h2>
+                    <div class="order-summary" id="orderSummary"></div>
+                    <div class="order-total-section">
+                        <div class="total-row"><span>பொருட்கள் மொத்தம் / Subtotal:</span><span id="summarySubtotal">₹0</span></div>
+                        <div class="total-row"><span>டெலிவரி கட்டணம் / Delivery:</span><span id="deliveryCharge">₹40</span></div>
+                        <div class="total-row grand-total"><span>மொத்த தொகை / Grand Total:</span><span id="grandTotal">₹0</span></div>
+                    </div>
+                    <button class="next-step-btn" onclick="goToStep(2)">தொடரவும் - Continue <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="checkout-step" id="step2">
+                    <h2><i class="fas fa-user"></i> வாடிக்கையாளர் விவரங்கள் - Customer Details</h2>
+                    <form id="customerForm" class="customer-form">
+                        <div class="form-group"><label><i class="fas fa-user"></i> பெயர் / Name *</label><input type="text" id="custName" placeholder="உங்கள் முழு பெயர் / Your Full Name" required></div>
+                        <div class="form-group"><label><i class="fas fa-phone"></i> தொலைபேசி / Phone *</label><input type="tel" id="custPhone" placeholder="தொலைபேசி எண் / Phone Number" required pattern="[0-9]{10}"></div>
+                        <div class="form-group"><label><i class="fas fa-envelope"></i> மின்னஞ்சல் / Email</label><input type="email" id="custEmail" placeholder="மின்னஞ்சல் / Email (Optional)"></div>
+                        <div class="form-group"><label><i class="fas fa-map-marker-alt"></i> முகவரி / Address *</label><textarea id="custAddress" placeholder="முழு முகவரி / Full Delivery Address" required rows="3"></textarea></div>
+                        <div class="form-group"><label><i class="fas fa-city"></i> நகரம் / City *</label><input type="text" id="custCity" placeholder="நகரம் / City" required></div>
+                        <div class="form-group"><label><i class="fas fa-map-pin"></i> பின் கோட் / Pincode *</label><input type="text" id="custPincode" placeholder="பின் கோட் / Pincode" required pattern="[0-9]{6}"></div>
+                        <div class="form-group"><label><i class="fas fa-sticky-note"></i> குறிப்பு / Notes</label><textarea id="custNotes" placeholder="ஏதேனும் சிறப்பு குறிப்புகள் / Any special notes" rows="2"></textarea></div>
+                        <div class="form-buttons">
+                            <button type="button" class="back-step-btn" onclick="goToStep(1)"><i class="fas fa-arrow-left"></i> பின்செல் - Back</button>
+                            <button type="submit" class="place-order-btn"><i class="fas fa-check-circle"></i> ஆர்டர் உறுதிசெய் - Confirm Order</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="checkout-step" id="step3">
+                    <div class="order-success">
+                        <div class="success-animation"><div class="checkmark-circle"><i class="fas fa-check"></i></div></div>
+                        <h2>ஆர்டர் வெற்றிகரமாக பதிவாகியது!</h2>
+                        <h3>Order Placed Successfully!</h3>
+                        <p class="order-id-display">ஆர்டர் எண் / Order ID: <strong id="displayOrderId"></strong></p>
+                        <p>உங்கள் ஆர்டர் விரைவில் டெலிவரி செய்யப்படும்.<br>Your order will be delivered soon.</p>
+                        <div class="success-buttons">
+                            <button class="download-bill-btn" onclick="downloadBill()"><i class="fas fa-file-pdf"></i> பில் பதிவிறக்கம் - Download Bill (PDF)</button>
+                            <button class="continue-shopping-btn" onclick="continueShopping()"><i class="fas fa-shopping-bag"></i> தொடர்ந்து வாங்கு - Continue Shopping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- Firebase + jsPDF -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+// ===== FIREBASE INITIALIZATION =====
+const firebaseConfig = {
+    apiKey: "AIzaSyBIEQlVJoUCUahflFZVApP48SZo1h7suuY",
+    authDomain: "oru-kadai.firebaseapp.com",
+    databaseURL: "https://oru-kadai-default-rtdb.firebaseio.com",
+    projectId: "oru-kadai",
+    storageBucket: "oru-kadai.firebasestorage.app",
+    messagingSenderId: "416272603430",
+    appId: "1:416272603430:web:8c5f6dcf0778ff1f8709e7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// ===== GLOBALS =====
+let cart = [];
+let currentOrderId = '';
+let currentOrderData = null;
+
+const productImages = {
+    'tea': 'https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/black-tea-powder-dry-dust-with-without-green-leaf-served-hot-chai-cup_466689-30161.avif',
+    'honey': 'https://raw.githubusercontent.com/pprojectcentreee/Oru-Kadai/main/honey.jpg'
+};
+
+// ===== PRELOADER =====
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+    }, 2500);
+    createParticles();
+    animateStats();
+});
+
+// ===== PARTICLES =====
+function createParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+        p.style.animationDelay = (Math.random() * 10) + 's';
+        p.style.width = (Math.random() * 6 + 3) + 'px';
+        p.style.height = p.style.width;
+        const colors = ['rgba(74,124,36,0.3)', 'rgba(218,165,32,0.2)', 'rgba(255,255,255,0.1)'];
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        container.appendChild(p);
+    }
+}
+
+// ===== STATS ANIMATION =====
+function animateStats() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateNumber(entry.target, 0, target, 2000);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+}
+
+function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.floor(start + (end - start) * easeOut);
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+// ===== NAVBAR SCROLL =====
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+
+    const sections = ['home', 'products', 'about', 'contact'];
+    sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            const rect = section.getBoundingClientRect();
+            const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+            if (link) {
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        }
+    });
+});
+
+// ===== MOBILE MENU =====
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+}
+
+// ===== PRODUCT FILTER =====
+function filterProducts(category, btn) {
+    document.querySelectorAll('.cat-tab').forEach(tab => tab.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.classList.remove('hidden');
+            card.style.animation = 'fadeInUp 0.5s forwards';
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+// ===== QUANTITY =====
+function changeQty(productId, delta) {
+    const input = document.getElementById('qty-' + productId);
+    let val = parseInt(input.value) + delta;
+    if (val < 1) val = 1;
+    if (val > 50) val = 50;
+    input.value = val;
+}
+
+// ===== ADD TO CART =====
+function addToCart(productId, name, weight, price) {
+    const qty = parseInt(document.getElementById('qty-' + productId).value);
+    const category = productId.startsWith('tea') ? 'tea' : 'honey';
+
+    const existingIndex = cart.findIndex(item => item.id === productId);
+    if (existingIndex !== -1) {
+        cart[existingIndex].qty += qty;
+    } else {
+        cart.push({ id: productId, name, weight, price, qty, category, image: productImages[category] });
+    }
+
+    document.getElementById('qty-' + productId).value = 1;
+    updateCartUI();
+    showToast('success', 'கூடையில் சேர்க்கப்பட்டது!', `${name} (${weight}) x${qty} - Added to cart`);
+    openCart();
+}
+
+// ===== UPDATE CART UI =====
+function updateCartUI() {
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const emptyCart = document.getElementById('emptyCart');
+    const cartFooter = document.getElementById('cartFooter');
+    const cartTotal = document.getElementById('cartTotal');
+
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCount.textContent = totalItems;
+    cartCount.style.animation = 'none';
+    cartCount.offsetHeight;
+    cartCount.style.animation = 'bounce-in 0.3s';
+
+    if (cart.length === 0) {
+        emptyCart.style.display = 'block';
+        cartFooter.style.display = 'none';
+        cartItems.querySelectorAll('.cart-item').forEach(el => el.remove());
+        return;
+    }
+
+    emptyCart.style.display = 'none';
+    cartFooter.style.display = 'block';
+    cartItems.querySelectorAll('.cart-item').forEach(el => el.remove());
+
+    let total = 0;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <div class="cart-item-details"><h4>${item.name}</h4><p>${item.weight} × ${item.qty} = ₹${itemTotal}</p></div>
+            <span class="cart-item-price">₹${itemTotal}</span>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})"><i class="fas fa-trash-alt"></i></button>
+        `;
+        cartItems.appendChild(div);
+    });
+    cartTotal.textContent = '₹' + total;
+}
+
+// ===== REMOVE FROM CART =====
+function removeFromCart(index) {
+    const removed = cart[index];
+    cart.splice(index, 1);
+    updateCartUI();
+    showToast('warning', 'நீக்கப்பட்டது!', `${removed.name} - Removed from cart`);
+}
+
+// ===== CART SIDEBAR =====
+function openCart() {
+    document.getElementById('cartSidebar').classList.add('active');
+    document.getElementById('cartOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+    document.getElementById('cartSidebar').classList.remove('active');
+    document.getElementById('cartOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ===== CHECKOUT =====
+function openCheckout() {
+    if (cart.length === 0) {
+        showToast('error', 'கூடை காலியாக உள்ளது!', 'Please add items to cart first');
+        return;
+    }
+    closeCart();
+    populateOrderSummary();
+    goToStep(1);
+    document.getElementById('checkoutModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCheckout() {
+    document.getElementById('checkoutModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function goToStep(step) {
+    document.querySelectorAll('.checkout-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+}
+
+function populateOrderSummary() {
+    const summary = document.getElementById('orderSummary');
+    summary.innerHTML = '';
+    let subtotal = 0;
+    cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+        summary.innerHTML += `<div class="summary-item"><div class="summary-item-info"><h4>${item.name}</h4><p>${item.weight} × ${item.qty}</p></div><span class="summary-item-price">₹${itemTotal}</span></div>`;
+    });
+    const delivery = 40;
+    document.getElementById('summarySubtotal').textContent = '₹' + subtotal;
+    document.getElementById('deliveryCharge').textContent = '₹' + delivery;
+    document.getElementById('grandTotal').textContent = '₹' + (subtotal + delivery);
+}
+
+// ===== FORM SUBMISSION =====
+document.getElementById('customerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const email = document.getElementById('custEmail').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+    const city = document.getElementById('custCity').value.trim();
+    const pincode = document.getElementById('custPincode').value.trim();
+    const notes = document.getElementById('custNotes').value.trim();
+
+    if (!name || !phone || !address || !city || !pincode) {
+        showToast('error', 'தவறு!', 'Please fill all required fields');
+        return;
+    }
+
+    const orderId = 'ORU' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const delivery = 40;
+    const grandTotal = subtotal + delivery;
+
+    const orderData = {
+        orderId,
+        customer: { name, phone, email: email || 'N/A', address, city, pincode, notes: notes || 'None' },
+        items: cart.map(item => ({ id: item.id, name: item.name, weight: item.weight, price: item.price, qty: item.qty, total: item.price * item.qty })),
+        subtotal, delivery, grandTotal,
+        status: 'Pending',
+        orderDate: new Date().toISOString(),
+        orderDateFormatted: new Date().toLocaleString('ta-IN', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        orderDateEnglish: new Date().toLocaleString('en-IN', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    };
+
+    database.ref('orders/' + orderId).set(orderData)
+        .then(() => {
+            currentOrderId = orderId;
+            currentOrderData = orderData;
+            document.getElementById('displayOrderId').textContent = orderId;
+            goToStep(3);
+            showToast('success', 'வெற்றி!', 'Order placed successfully!');
+            cart = [];
+            updateCartUI();
+            document.getElementById('customerForm').reset();
+        })
+        .catch((error) => {
+            console.error('Firebase Error:', error);
+            showToast('error', 'பிழை!', 'Order failed. Please try again.');
+        });
+});
+
+// ===== DOWNLOAD BILL PDF =====
+function downloadBill() {
+    if (!currentOrderData) { showToast('error', 'பிழை!', 'No order data found'); return; }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const order = currentOrderData;
+
+    const green = [45, 80, 22];
+    const darkGreen = [26, 48, 9];
+    const gold = [184, 134, 11];
+    const white = [255, 255, 255];
+    const gray = [100, 100, 100];
+    const lightGray = [240, 240, 240];
+
+    // Header
+    doc.setFillColor(...darkGreen);
+    doc.rect(0, 0, 210, 50, 'F');
+    doc.setTextColor(...white);
+    doc.setFontSize(28);
+    doc.setFont('helvetica', 'bold');
+    doc.text('ORU KADAI', 105, 22, { align: 'center' });
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Premium Tea Powder & Natural Honey', 105, 32, { align: 'center' });
+    doc.setFontSize(8);
+    doc.text('Tamil Nadu, India | Phone: +91 98765 43210 | Email: orukadai@gmail.com', 105, 42, { align: 'center' });
+
+    // Bill Title
+    doc.setFillColor(...green);
+    doc.rect(0, 52, 210, 10, 'F');
+    doc.setTextColor(...white);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('INVOICE / BILL', 105, 59, { align: 'center' });
+
+    // Order Info
+    let y = 72;
+    doc.setTextColor(...darkGreen);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Order ID:', 15, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...gray);
+    doc.text(order.orderId, 55, y);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...darkGreen);
+    doc.text('Date:', 120, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...gray);
+    doc.text(order.orderDateEnglish, 140, y);
+
+    y += 8;
+    doc.setDrawColor(...green);
+    doc.setLineWidth(0.5);
+    doc.line(15, y, 195, y);
+
+    // Customer
+    y += 10;
+    doc.setFillColor(245, 250, 240);
+    doc.roundedRect(15, y - 5, 180, 45, 3, 3, 'F');
+    doc.setTextColor(...darkGreen);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Customer Details', 20, y + 2);
+
+    y += 10;
+    doc.setFontSize(9);
+    [['Name:', order.customer.name], ['Phone:', order.customer.phone], ['Email:', order.customer.email],
+     ['Address:', order.customer.address + ', ' + order.customer.city + ' - ' + order.customer.pincode]
+    ].forEach(([label, value]) => {
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...darkGreen);
+        doc.text(label, 20, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...gray);
+        doc.text(String(value).substring(0, 80), 55, y);
+        y += 7;
+    });
+
+    // Items
+    y += 8;
+    doc.setTextColor(...darkGreen);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Order Items', 15, y);
+    y += 8;
+
+    doc.setFillColor(...green);
+    doc.rect(15, y - 5, 180, 10, 'F');
+    doc.setTextColor(...white);
+    doc.setFontSize(9);
+    doc.text('#', 20, y + 1);
+    doc.text('Product', 30, y + 1);
+    doc.text('Weight', 100, y + 1);
+    doc.text('Price', 125, y + 1);
+    doc.text('Qty', 150, y + 1);
+    doc.text('Total', 170, y + 1);
+    y += 10;
+
+    order.items.forEach((item, index) => {
+        if (index % 2 === 0) { doc.setFillColor(...lightGray); doc.rect(15, y - 5, 180, 10, 'F'); }
+        doc.setTextColor(...gray);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.text(String(index + 1), 20, y + 1);
+        doc.text(item.name.substring(0, 30), 30, y + 1);
+        doc.text(item.weight, 100, y + 1);
+        doc.text('Rs.' + item.price, 125, y + 1);
+        doc.text(String(item.qty), 153, y + 1);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Rs.' + item.total, 170, y + 1);
+        y += 10;
+    });
+
+    // Totals
+    y += 5;
+    doc.setDrawColor(...green);
+    doc.line(120, y, 195, y);
+    y += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...gray);
+    doc.text('Subtotal:', 125, y);
+    doc.text('Rs.' + order.subtotal, 170, y);
+    y += 7;
+    doc.text('Delivery:', 125, y);
+    doc.text('Rs.' + order.delivery, 170, y);
+    y += 3;
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(1);
+    doc.line(120, y, 195, y);
+    y += 8;
+    doc.setFillColor(...gold);
+    doc.roundedRect(118, y - 6, 77, 14, 2, 2, 'F');
+    doc.setTextColor(...white);
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'bold');
+    doc.text('GRAND TOTAL: Rs.' + order.grandTotal, 157, y + 2, { align: 'center' });
+
+    // Footer
+    const footerY = 270;
+    doc.setDrawColor(...green);
+    doc.setLineWidth(0.5);
+    doc.line(15, footerY, 195, footerY);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...gray);
+    doc.text('Thank you for shopping with Oru Kadai!', 105, footerY + 7, { align: 'center' });
+    doc.text('For queries, contact: +91 98765 43210', 105, footerY + 13, { align: 'center' });
+    doc.setTextColor(...green);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Oru Kadai - Quality you can trust!', 105, footerY + 20, { align: 'center' });
+
+    doc.save('OruKadai_Bill_' + order.orderId + '.pdf');
+    showToast('success', 'பதிவிறக்கப்பட்டது!', 'Bill downloaded as PDF');
+}
+
+// ===== CONTINUE SHOPPING =====
+function continueShopping() {
+    closeCheckout();
+    currentOrderData = null;
+    currentOrderId = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== TOAST =====
+function showToast(type, title, message) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    const icons = { success: 'fa-check-circle', error: 'fa-times-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
+    toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><div class="toast-text"><strong>${title}</strong><span>${message}</span></div>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+        }
+    });
+});
+
+console.log('%c🍵 ஒரு கடை - Oru Kadai 🍯', 'font-size: 20px; color: #2d5016; font-weight: bold;');
+</script>
+</body>
+</html>
